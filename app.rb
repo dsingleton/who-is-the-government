@@ -2,11 +2,12 @@ require 'sinatra'
 require 'net/http'
 require 'json'
 require 'date'
+require 'erb'
 
 get '/' do
   gov = current_government
-  return gov['title'] if gov
-  "There is no government, right now."
+  @gov = if gov then gov['title'] else "There is no government, right now." end
+  erb :index
 end
 
 def current_government
